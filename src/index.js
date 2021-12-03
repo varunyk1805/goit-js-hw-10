@@ -10,9 +10,11 @@ const countryList = document.querySelector('.country-list');
 const countryInfo = document.querySelector('.country-info');
 
 searchInput.addEventListener('input', debounce(() => {
-    let countryName = searchInput.value.trim();
     let valueSearchInput = searchInput.value;
+    let countryName = valueSearchInput.trim();
     if (countryName === '') return;
+    if (countryName !== valueSearchInput.trimLeft()) return;
+
     fetchCountries(countryName)
         .then(value => {
             let countryData = value;
@@ -46,7 +48,6 @@ searchInput.addEventListener('input', debounce(() => {
             };
         })
         .catch(error => {
-            if (countryName === valueSearchInput.trim() && countryName !== valueSearchInput.trimLeft()) return;
             countryList.innerHTML = '';
             countryInfo.innerHTML = '';
             Notiflix.Notify.failure('Oops, there is no country with that name');
