@@ -11,6 +11,7 @@ const countryInfo = document.querySelector('.country-info');
 
 searchInput.addEventListener('input', debounce(() => {
     let countryName = searchInput.value.trim();
+    if (countryName === '') return;
     fetchCountries(countryName)
         .then(value => {
             let countryData = value;
